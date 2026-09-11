@@ -1,0 +1,260 @@
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    width: 340px;
+    height: 480px;
+
+    background: #587ff0;
+
+    border: 2px solid black;
+
+    padding: 28px 24px;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    color: black;
+}
+
+
+/* =========================
+   TITLE
+========================= */
+
+h1 {
+    font-family: Arial, Helvetica, sans-serif;
+
+    font-size: 52px;
+    font-weight: 900;
+
+    letter-spacing: -4px;
+
+    margin-top: 5px;
+}
+
+
+/* =========================
+   TAGLINE
+========================= */
+
+.tagline {
+    font-family: Georgia, "Times New Roman", serif;
+
+    font-size: 12px;
+    font-weight: bold;
+
+    margin-top: -2px;
+    margin-bottom: 34px;
+}
+
+
+/* =========================
+   ON / OFF
+========================= */
+
+.toggle {
+    display: flex;
+
+    width: 260px;
+    height: 36px;
+
+    border: 2px solid black;
+}
+
+.toggle-btn {
+    width: 50%;
+
+    border: none;
+    border-right: 2px solid black;
+
+    background: white;
+
+    font-family: Georgia, "Times New Roman", serif;
+
+    font-size: 22px;
+    font-weight: bold;
+
+    cursor: pointer;
+}
+
+.toggle-btn:last-child {
+    border-right: none;
+}
+
+.toggle-btn.active {
+    background: #ffdc55;
+}
+
+
+/* =========================
+   MODES
+========================= */
+
+.modes {
+    display: flex;
+
+    gap: 6px;
+
+    margin-top: 44px;
+}
+
+.mode {
+    padding: 8px 12px;
+
+    border: 2px solid black;
+    border-radius: 13px;
+
+    background: white;
+
+    font-family: Georgia, "Times New Roman", serif;
+
+    font-size: 17px;
+    font-weight: bold;
+
+    cursor: pointer;
+}
+
+.mode.active {
+    background: #ffdc55;
+}
+
+.mode:active {
+    transform: translateY(1px);
+}
+
+
+/* =========================
+   SLIDER
+========================= */
+
+.slider-container {
+    width: 100%;
+    margin-top: 54px;
+    padding: 0 0;
+}
+
+.active-label {
+    color: white;
+}
+
+
+/* The line */
+
+#level {
+    width: 100%;
+    height: 3px;
+
+    appearance: none;
+    -webkit-appearance: none;
+
+    background: black;
+
+    outline: none;
+
+    display: block;
+
+    margin: 0;
+}
+
+
+/* Yellow draggable circle */
+
+#level::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+
+    width: 16px;
+    height: 16px;
+
+    border-radius: 50%;
+
+    background: #ffdc55;
+
+    border: none;
+
+    cursor: pointer;
+}
+
+
+/* Firefox */
+
+#level::-moz-range-thumb {
+    width: 16px;
+    height: 16px;
+
+    border-radius: 50%;
+
+    background: #ffdc55;
+
+    border: none;
+
+    cursor: pointer;
+}
+
+
+/* Labels */
+
+.labels {
+    width: 100%;
+
+    display: flex;
+    justify-content: space-between;
+
+    margin-top: 9px;
+
+    font-family: Georgia, "Times New Roman", serif;
+
+    font-size: 12px;
+    font-weight: bold;
+
+    line-height: 11px;
+}
+
+
+/* LEFT */
+
+.labels span:first-child {
+    width: 33.33%;
+
+    text-align: left;
+}
+
+
+/* CENTER */
+
+.labels span:nth-child(2) {
+    width: 33.33%;
+
+    text-align: center;
+}
+
+
+/* RIGHT */
+
+.labels span:last-child {
+    width: 33.33%;
+
+    text-align: right;
+}
+
+
+/* =========================
+   FOOTER
+========================= */
+
+.footer {
+    margin-top: 57px;
+
+    font-family: Georgia, "Times New Roman", serif;
+
+    font-size: 13px;
+
+    font-weight: bold;
+
+    text-align: center;
+}
