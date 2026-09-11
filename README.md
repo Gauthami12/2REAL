@@ -2,17 +2,17 @@
 
 
 
-# [Project Name] 🎯
+GenZify
 
 
 ## Basic Details
-### Team Name: [Name]
+### Team Name: 2REAL
 
 
 ### Team Members
-- Team Lead: [Name] - [College]
-- Member 2: [Name] - [College]
-- Member 3: [Name] - [College]
+- Team Lead: Gauthami Asok - NSS College of Engineering, Palakkad
+- Member 2: Rafa - NSS College of Engineering, Palakkad
+
 
 ### Project Description
 [2-3 lines about what your project does]
@@ -26,23 +26,16 @@
 ## Technical Details
 ### Technologies/Components Used
 For Software:
-- [Languages used]
-- [Frameworks used]
-- [Libraries used]
-- [Tools used]
+- HTML, CSS, JavaScript, Python, JSON
+- fastapi, uvicorn, pydantic, openai 
+- OpenAI response
 
-For Hardware:
-- [List main components]
-- [List specifications]
-- [List tools required]
 
 ### Implementation
 For Software:
 # Installation
-[commands]
+pip install fastapi uvicorn pydantic openai dotenv
 
-# Run
-[commands]
 
 ### Project Documentation
 For Software:
@@ -89,9 +82,8 @@ For Hardware:
 [Add any extra demo materials/links]
 
 ## Team Contributions
-- [Name 1]: [Specific contributions]
-- [Name 2]: [Specific contributions]
-- [Name 3]: [Specific contributions]
+- Gauthami Asok : Backend
+- Rafa : Frontend
 
 ---
 Made with ❤️ at TinkerHub Useless Projects 
