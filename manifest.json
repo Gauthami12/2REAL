@@ -1,27 +1,34 @@
 {
   "manifest_version": 3,
+
   "name": "GenZify",
+
   "version": "1.0",
+
   "description": "Because normal is kinda mid.",
+
   "permissions": [
-        "storage"
-    ],
+    "storage"
+  ],
 
-    "host_permissions": [
-        "<all_urls>",
-        "http://127.0.0.1:8000/*",
-        "http://localhost:8000/*"
-    ],
+  "host_permissions": [
+    "http://127.0.0.1:8000/*",
+    "http://localhost:8000/*"
+  ],
 
-    "action": {
-        "default_popup": "popup.html"
-    },
+  "action": {
+    "default_popup": "popup.html"
+  },
 
-    "content_scripts": [
-        {
-            "matches": ["<all_urls>"],
-            "js": ["content.js"],
-            "run_at": "document_start"
-        }
-    ]
+  "background": {
+    "service_worker": "background.js"
+  },
+
+  "content_scripts": [
+    {
+      "matches": ["<all_urls>"],
+      "js": ["content.js"],
+      "run_at": "document_start"
+    }
+  ]
 }
