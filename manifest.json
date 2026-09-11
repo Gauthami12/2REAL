@@ -1,0 +1,9 @@
+{
+  "manifest_version": 3,
+  "name": "GenZify",
+  "version": "1.0",
+  "description": "Because normal is kinda mid.",
+  "action": {
+    "default_popup": "popup.html"
+  }
+}

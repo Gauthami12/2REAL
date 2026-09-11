@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GenZify</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+    <h1>GenZify</h1>
+
+    <p class="tagline">Because normal is kinda mid.</p>
+
+
+    <!-- ON / OFF -->
+    <div class="toggle">
+
+        <button id="onBtn" class="toggle-btn active">
+            ON
+        </button>
+
+        <button id="offBtn" class="toggle-btn">
+            OFF
+        </button>
+
+    </div>
+
+
+    <!-- MODES -->
+    <div class="modes">
+
+        <button class="mode active" data-mode="casual">
+            CASUAL
+        </button>
+
+        <button class="mode" data-mode="funny">
+            FUNNY
+        </button>
+
+        <button class="mode" data-mode="savage">
+            SAVAGE
+        </button>
+
+    </div>
+
+
+    <!-- SLIDER -->
+    <div class="slider-container">
+
+    <input
+        type="range"
+        id="level"
+        min="1"
+        max="3"
+        value="2"
+    >
+
+    <div class="labels">
+        <span>MID<br>GEN Z</span>
+
+        <span>CHRONICALLY<br>ONLINE</span>
+
+        <span>FULL<br>BRAIN-<br>ROT</span>
+    </div>
+
+</div>
+
+
+    <!-- FOOTER -->
+    <div class="footer">
+        Built by the unserious · Fueled by chaos
+    </div>
+
+
+    <script src="script.js"></script>
+
+</body>
+
+</html>
