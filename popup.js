@@ -1,74 +1,65 @@
-const inputText = document.getElementById("inputText");
-const outputText = document.getElementById("outputText");
-
-const style = document.getElementById("style");
-const slang = document.getElementById("slang");
-const emojis = document.getElementById("emojis");
-
-const convertBtn = document.getElementById("convertBtn");
-const copyBtn = document.getElementById("copyBtn");
-const status = document.getElementById("status");
+let enabled = true;
+let mode = "casual";
+let level = 2;
 
 
-convertBtn.addEventListener("click", async () => {
+// ON button
+document.getElementById("onBtn").addEventListener("click", () => {
+    enabled = true;
 
-    const text = inputText.value.trim();
+    document.getElementById("onBtn").classList.add("active");
+    document.getElementById("offBtn").classList.remove("active");
 
-    if (!text) {
-        status.textContent = "Enter some text first.";
-        return;
-    }
-
-    status.textContent = "Cooking...";
-
-    try {
-
-        const response = await fetch(
-            "http://127.0.0.1:8000/convert",
-            {
-                method: "POST",
-
-                headers: {
-                    "Content-Type": "application/json"
-                },
-
-                body: JSON.stringify({
-                    text: text,
-                    style: style.value,
-                    slang: slang.value,
-                    emojis: emojis.value
-                })
-            }
-        );
-
-        if (!response.ok) {
-            throw new Error("Server error");
-        }
-
-        const data = await response.json();
-
-        outputText.value = data.result;
-
-        status.textContent = "Done.";
-
-    } catch (error) {
-
-        console.error(error);
-
-        status.textContent =
-            "Could not connect to the Python server.";
-
-    }
+    saveSettings();
 });
 
 
-copyBtn.addEventListener("click", async () => {
+// OFF button
+document.getElementById("offBtn").addEventListener("click", () => {
+    enabled = false;
 
-    if (!outputText.value) {
-        return;
-    }
+    document.getElementById("offBtn").classList.add("active");
+    document.getElementById("onBtn").classList.remove("active");
 
-    await navigator.clipboard.writeText(outputText.value);
-
-    status.textContent = "Copied!";
+    saveSettings();
 });
+
+
+// Mode buttons
+document.querySelectorAll(".mode").forEach(button => {
+
+    button.addEventListener("click", () => {
+
+        document.querySelectorAll(".mode")
+            .forEach(btn => btn.classList.remove("active"));
+
+        button.classList.add("active");
+
+        mode = button.dataset.mode;
+
+        saveSettings();
+    });
+
+});
+
+
+// Slider
+document.getElementById("level").addEventListener("input", (event) => {
+
+    level = Number(event.target.value);
+
+    saveSettings();
+
+});
+
+
+// Save settings
+function saveSettings() {
+
+    chrome.storage.local.set({
+        enabled: enabled,
+        mode: mode,
+        level: level
+    });
+
+}

@@ -3,7 +3,25 @@
   "name": "GenZify",
   "version": "1.0",
   "description": "Because normal is kinda mid.",
-  "action": {
-    "default_popup": "popup.html"
-  }
+  "permissions": [
+        "storage"
+    ],
+
+    "host_permissions": [
+        "<all_urls>",
+        "http://127.0.0.1:8000/*",
+        "http://localhost:8000/*"
+    ],
+
+    "action": {
+        "default_popup": "popup.html"
+    },
+
+    "content_scripts": [
+        {
+            "matches": ["<all_urls>"],
+            "js": ["content.js"],
+            "run_at": "document_start"
+        }
+    ]
 }

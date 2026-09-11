@@ -19,30 +19,70 @@ app.add_middleware(
 
 class TextRequest(BaseModel):
     text: str
-    style: str = "casual"
-    slang: str = "medium"
-    emojis: str = "low"
+    mode: str = "casual"
+    level: int = 2
 
 
 @app.post("/convert")
 def convert_text(request: TextRequest):
 
+    level_names = {
+        1: "MID GEN Z",
+        2: "CHRONICALLY ONLINE",
+        3: "FULL BRAIN-ROT"
+    }
+
+    level = level_names.get(
+        request.level,
+        "CHRONICALLY ONLINE"
+    )
     prompt = f"""
-Rewrite the following text in modern Gen Z internet language.
+You are GenZify, an AI that converts normal text into
+natural modern Gen Z internet language.
 
-Rules:
+MODE:
+{request.mode}
+
+INTENSITY:
+{request.level}
+
+RULES:
+
 - Preserve the original meaning.
-- Don't invent information.
-- Keep names, numbers and URLs unchanged.
-- Make the language sound natural, not forced.
-- Use slang appropriate to the requested intensity.
-- Return ONLY the rewritten text.
+- Do not invent facts.
+- Do not change names, numbers, URLs, dates, or important information.
+- Make the result sound natural.
+- Do not force slang into every sentence.
+- Use current internet slang appropriately.
+- The higher the intensity, the more exaggerated the language can become.
+- Return ONLY the converted text.
+- Do not explain what you changed.
 
-Style: {request.style}
-Slang intensity: {request.slang}
-Emoji intensity: {request.emojis}
+MODE DEFINITIONS:
 
-Text:
+CASUAL:
+Make the text sound naturally Gen Z and conversational.
+
+FUNNY:
+Make the text more humorous and playful while preserving the meaning.
+
+SAVAGE:
+Make the text more blunt, confident, and slightly ruthless while
+still preserving the original meaning.
+
+INTENSITY DEFINITIONS:
+
+MID GEN Z:
+Light slang. Keep it relatively understandable.
+
+CHRONICALLY ONLINE:
+More slang, internet expressions, and occasional emojis.
+
+FULL BRAIN-ROT:
+Highly chaotic internet language, exaggerated slang, and
+appropriate emojis. Still preserve the original meaning.
+
+TEXT TO CONVERT:
 {request.text}
 """
 
