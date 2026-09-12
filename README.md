@@ -15,13 +15,14 @@ GenZify
 
 
 ### Project Description
-[2-3 lines about what your project does]
+GenZify is an AI-powered Chrome extension that converts ordinary text into natural Gen Z-style language while preserving the original meaning. It allows users to quickly transform text directly from their browser using customizable levels of slang, emojis, and writing styles.
 
 ### The Problem (that doesn't exist)
-[What ridiculous problem are you solving?]
+People often want to communicate in a casual, modern, Gen Z style, but they may not know the slang, expressions, abbreviations, or tone that make text sound natural in online conversations.
+
 
 ### The Solution (that nobody asked for)
-[How are you solving it? Keep it fun!]
+A Chrome extension that uses AI to instantly transform ordinary text into natural Gen Z-style language while preserving its original meaning.
 
 ## Technical Details
 ### Technologies/Components Used
