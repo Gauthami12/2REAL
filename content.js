@@ -2,90 +2,33 @@ console.log("🔥 GENZIFY LOADED");
 
 
 // ========================================
-// GET SETTINGS
-// ========================================
-
-function getSettings() {
-
-    return new Promise((resolve) => {
-
-        chrome.storage.local.get(
-            ["enabled", "mode", "level"],
-            (settings) => {
-
-                resolve({
-
-                    enabled:
-                        settings.enabled !== false,
-
-                    mode:
-                        settings.mode || "casual",
-
-                    level:
-                        settings.level || 2
-
-                });
-
-            }
-        );
-
-    });
-}
-
-
-// ========================================
 // ASK BACKGROUND TO CONVERT
 // ========================================
 
 function genZify(text) {
 
-    return new Promise(async (resolve, reject) => {
-
-        const settings =
-            await getSettings();
-
-
-        if (!settings.enabled) {
-
-            resolve(text);
-
-            return;
-        }
-
+    return new Promise((resolve, reject) => {
 
         chrome.runtime.sendMessage(
             {
                 type: "GENZIFY",
-
-                text: text,
-
-                mode: settings.mode,
-
-                level: settings.level
+                text: text
             },
 
             (response) => {
 
-                if (
-                    chrome.runtime.lastError
-                ) {
+                if (chrome.runtime.lastError) {
 
                     reject(
                         new Error(
-                            chrome.runtime
-                                .lastError
-                                .message
+                            chrome.runtime.lastError.message
                         )
                     );
 
                     return;
                 }
 
-
-                if (
-                    !response ||
-                    !response.success
-                ) {
+                if (!response || !response.success) {
 
                     reject(
                         new Error(
@@ -97,14 +40,9 @@ function genZify(text) {
                     return;
                 }
 
-
-                resolve(
-                    response.result
-                );
-
+                resolve(response.result);
             }
         );
-
     });
 }
 
@@ -113,42 +51,25 @@ function genZify(text) {
 // HANDLE ENTER
 // ========================================
 
-async function handleEnter(
-    element,
-    event
-) {
-
-    // Only ENTER
+async function handleEnter(element, event) {
 
     if (
         event.key !== "Enter" ||
         event.shiftKey
     ) {
-
         return;
     }
 
-
-    const text =
-        element.value;
-
+    const text = element.value;
 
     if (!text.trim()) {
-
         return;
     }
 
+    console.log("GenZifying:", text);
 
-    console.log(
-        "GenZifying:",
-        text
-    );
-
-
-    // STOP the normal search
-
+    // Stop normal search
     event.preventDefault();
-
     event.stopImmediatePropagation();
 
 
@@ -157,36 +78,22 @@ async function handleEnter(
         const converted =
             await genZify(text);
 
-
         console.log(
             "GenZ result:",
             converted
         );
 
-
-        // Put converted text
-        // into search box
-
-        element.value =
-            converted;
-
-
-        // Tell the website
-        // that the value changed
+        // Replace search text
+        element.value = converted;
 
         element.dispatchEvent(
-            new Event(
-                "input",
-                {
-                    bubbles: true
-                }
-            )
+            new Event("input", {
+                bubbles: true
+            })
         );
 
 
-        // Search using
-        // converted text
-
+        // Search converted text
         setTimeout(() => {
 
             submitSearch(element);
@@ -202,14 +109,10 @@ async function handleEnter(
             error
         );
 
-
-        // If GenZify fails,
+        // If conversion fails,
         // search original text
-
         submitSearch(element);
-
     }
-
 }
 
 
@@ -222,7 +125,6 @@ function submitSearch(element) {
     const form =
         element.closest("form");
 
-
     if (form) {
 
         if (
@@ -232,19 +134,14 @@ function submitSearch(element) {
 
             form.requestSubmit();
 
-        }
-        else {
+        } else {
 
             form.submit();
-
         }
 
         return;
     }
 
-
-    // Fallback:
-    // press Enter again
 
     element.dispatchEvent(
         new KeyboardEvent(
@@ -258,7 +155,6 @@ function submitSearch(element) {
             }
         )
     );
-
 }
 
 
@@ -274,11 +170,9 @@ document.addEventListener(
         const element =
             event.target;
 
-
         if (!element) {
             return;
         }
-
 
         if (
             element.tagName === "INPUT" ||
@@ -289,9 +183,7 @@ document.addEventListener(
                 element,
                 event
             );
-
         }
-
     },
 
     true
