@@ -3,63 +3,162 @@ let mode = "casual";
 let level = 2;
 
 
-// ON button
-document.getElementById("onBtn").addEventListener("click", () => {
-    enabled = true;
+// ==========================
+// LOAD SETTINGS
+// ==========================
 
-    document.getElementById("onBtn").classList.add("active");
-    document.getElementById("offBtn").classList.remove("active");
+chrome.storage.local.get(
+    ["enabled", "mode", "level"],
+    (settings) => {
 
-    saveSettings();
-});
+        if (settings.enabled !== undefined) {
+            enabled = settings.enabled;
+        }
+
+        if (settings.mode !== undefined) {
+            mode = settings.mode;
+        }
+
+        if (settings.level !== undefined) {
+            level = settings.level;
+        }
+
+        updateUI();
+    }
+);
 
 
-// OFF button
-document.getElementById("offBtn").addEventListener("click", () => {
-    enabled = false;
+// ==========================
+// ON
+// ==========================
 
-    document.getElementById("offBtn").classList.add("active");
-    document.getElementById("onBtn").classList.remove("active");
+document.getElementById("onBtn").addEventListener(
+    "click",
+    () => {
 
-    saveSettings();
-});
-
-
-// Mode buttons
-document.querySelectorAll(".mode").forEach(button => {
-
-    button.addEventListener("click", () => {
-
-        document.querySelectorAll(".mode")
-            .forEach(btn => btn.classList.remove("active"));
-
-        button.classList.add("active");
-
-        mode = button.dataset.mode;
+        enabled = true;
 
         saveSettings();
-    });
 
-});
-
-
-// Slider
-document.getElementById("level").addEventListener("input", (event) => {
-
-    level = Number(event.target.value);
-
-    saveSettings();
-
-});
+        updateUI();
+    }
+);
 
 
-// Save settings
+// ==========================
+// OFF
+// ==========================
+
+document.getElementById("offBtn").addEventListener(
+    "click",
+    () => {
+
+        enabled = false;
+
+        saveSettings();
+
+        updateUI();
+    }
+);
+
+// ==========================
+// MODE
+// ==========================
+
+document.querySelectorAll(".mode").forEach(
+    (button) => {
+
+        button.addEventListener(
+            "click",
+            () => {
+
+                mode = button.dataset.mode;
+
+                saveSettings();
+
+                updateUI();
+            }
+        );
+    }
+);
+
+
+// ==========================
+// LEVEL
+// ==========================
+
+document.getElementById("level").addEventListener(
+    "input",
+    (event) => {
+
+        level = Number(event.target.value);
+
+        saveSettings();
+
+        updateUI();
+    }
+);
+
+
+// ==========================
+// SAVE
+// ==========================
+
 function saveSettings() {
 
     chrome.storage.local.set({
-        enabled: enabled,
-        mode: mode,
-        level: level
-    });
 
+        enabled: enabled,
+
+        mode: mode,
+
+        level: level
+
+    });
+}
+
+
+// ==========================
+// UPDATE UI
+// ==========================
+
+function updateUI() {
+
+    document.getElementById("onBtn")
+        .classList.toggle(
+            "active",
+            enabled
+        );
+
+
+    document.getElementById("offBtn")
+        .classList.toggle(
+            "active",
+            !enabled
+        );
+
+
+    document.querySelectorAll(".mode")
+        .forEach((button) => {
+
+            button.classList.toggle(
+                "active",
+                button.dataset.mode === mode
+            );
+
+        });
+
+
+    document.getElementById("level").value = level;
+
+
+    document.querySelectorAll(".labels span")
+        .forEach((label) => {
+
+            label.classList.toggle(
+                "active-label",
+                Number(label.dataset.level) === level
+            );
+
+        });
 }
