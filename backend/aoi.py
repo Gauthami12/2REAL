@@ -3,7 +3,7 @@ from fastapi.middleware.cors import CORSMiddleware
 
 from pydantic import BaseModel
 
-from openai import OpenAI
+from openai import OpenAI, RateLimitError
 
 from dotenv import load_dotenv
 
@@ -51,7 +51,7 @@ app.add_middleware(
 
 
 # ========================================
-# REQUEST
+# REQUEST MODEL
 # ========================================
 
 class TextRequest(BaseModel):
@@ -64,12 +64,15 @@ class TextRequest(BaseModel):
 
 
 # ========================================
-# CONVERT
+# CONVERT TEXT
 # ========================================
 
 @app.post("/convert")
 def convert_text(request: TextRequest):
 
+    # ========================================
+    # GEN Z LEVELS
+    # ========================================
 
     levels = {
 
@@ -81,12 +84,15 @@ def convert_text(request: TextRequest):
 
     }
 
-
     level_name = levels.get(
         request.level,
         "CHRONICALLY ONLINE"
     )
 
+
+    # ========================================
+    # PROMPT
+    # ========================================
 
     prompt = f"""
 You are GenZify.
@@ -148,15 +154,61 @@ TEXT:
 """
 
 
-    response = client.responses.create(
+    # ========================================
+    # CALL OPENAI
+    # ========================================
 
-        model="gpt-5.6-luna",
+    try:
 
-        input=prompt
+        response = client.responses.create(
 
-    )
+            model="gpt-5.6-luna",
+
+            input=prompt
+
+        )
 
 
-    return {
-        "result": response.output_text
-    }
+        # ========================================
+        # RETURN RESULT
+        # ========================================
+
+        return {
+
+            "result": response.output_text
+
+        }
+
+
+    # ========================================
+    # RATE LIMIT
+    # ========================================
+
+    except RateLimitError:
+
+        return {
+
+            "result":
+            "AI rate limit reached 😭 "
+            "Try again when the API limit resets."
+
+        }
+
+
+    # ========================================
+    # OTHER ERRORS
+    # ========================================
+
+    except Exception as e:
+
+        print(
+            "OPENAI ERROR:",
+            e
+        )
+
+        return {
+
+            "result":
+            "Something went wrong with the AI 😭"
+
+        }
