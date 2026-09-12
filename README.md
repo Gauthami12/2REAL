@@ -48,7 +48,7 @@ For Software:
 ![before pressing enter](before.jpg)
 *Add caption explaining what this shows*
 
-![UI]("extension ui".jpg)
+![UI]("extension ui.jpg")
 
 ### Project Demo
 # Video
