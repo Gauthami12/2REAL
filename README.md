@@ -42,13 +42,13 @@ pip install fastapi uvicorn pydantic openai dotenv
 For Software:
 
 # Screenshots 
-![after.jpg](after pressing enter)
+![after pressing enter](after.jpg)
 
 
-![before.jpg](After pressing enter)
+![before pressing enter](before.jpg)
 *Add caption explaining what this shows*
 
-!["extension ui".jpg](UI)
+![UI]("extension ui".jpg)
 
 ### Project Demo
 # Video
